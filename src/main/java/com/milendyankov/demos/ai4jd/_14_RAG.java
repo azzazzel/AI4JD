@@ -5,7 +5,11 @@ import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.embedding.AllMiniLmL6V2EmbeddingModel;
 import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.model.ollama.OllamaChatModel;
+import dev.langchain4j.rag.DefaultRetrievalAugmentor;
+import dev.langchain4j.rag.RetrievalAugmentor;
 import dev.langchain4j.rag.content.Content;
+import dev.langchain4j.rag.content.injector.ContentInjector;
+import dev.langchain4j.rag.content.injector.DefaultContentInjector;
 import dev.langchain4j.rag.content.retriever.ContentRetriever;
 import dev.langchain4j.rag.content.retriever.EmbeddingStoreContentRetriever;
 import dev.langchain4j.rag.query.Query;
@@ -14,6 +18,7 @@ import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.store.embedding.EmbeddingStore;
 import dev.langchain4j.store.embedding.pgvector.PgVectorEmbeddingStore;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class _14_RAG {
@@ -45,11 +50,23 @@ public class _14_RAG {
                 .build();
 
         List<Content> retrieved = contentRetriever.retrieve(new Query("how to play a song on a piano?"));
+        System.out.println("---");
         retrieved.forEach(System.out::println);
+        System.out.println("---");
+
+
+        ContentInjector contentInjector = DefaultContentInjector.builder()
+                .metadataKeysToInclude(Arrays.asList("title"))
+                .build();
+
+        RetrievalAugmentor retrievalAugmentor = DefaultRetrievalAugmentor.builder()
+                .contentRetriever(contentRetriever)
+                .contentInjector(contentInjector)
+                .build();
 
         Librarian librarian = AiServices.builder(Librarian.class)
                 .chatLanguageModel(model)
-                .contentRetriever(contentRetriever)
+                .retrievalAugmentor(retrievalAugmentor)
                 .build();
 
         String answer = librarian.chat(query);
