@@ -50,14 +50,8 @@ public class _14_RAG {
                 .maxResults(5)
                 .build();
 
-        List<Content> retrieved = contentRetriever.retrieve(new Query("how to play a song on a piano?"));
-        System.out.println("---");
-        retrieved.forEach(System.out::println);
-        System.out.println("---");
-
-
         ContentInjector contentInjector = DefaultContentInjector.builder()
-                .metadataKeysToInclude(Arrays.asList("title"))
+                .metadataKeysToInclude(List.of("title"))
                 .build();
 
         RetrievalAugmentor retrievalAugmentor = DefaultRetrievalAugmentor.builder()
@@ -71,18 +65,20 @@ public class _14_RAG {
                 .build();
 
         String answer = librarian.chat(query);
+        System.out.println("\n\n ====== ");
         System.out.println(answer);
     }
 
     interface Librarian {
         @SystemMessage({
-                "You are a librarian.",
-                "Divide your response into two sections",
-                "For each section respond with the names and a brief summary of books related to the question",
-                "First section is 'books we have' and must only contain books provided in the context of the request",
-                "Second section is 'other books' and should contains other books you may know of ",
+                "The user is providing information about what they want to learn.",
+                "You are a helpful librarian helping then find the relevant books.",
+                "Respond as a human in real bookstore would",
+                "Provide the titles and briefly explain how it helps",
+                "First mention all relevant available books. They must be from the bookstore DB provided in the request.",
+                "Then you may add other books (not found in the request) than can help with the request.",
                 "The titles of the books in the context are under the 'title' key in the metadata",
-                "Don't ask questions or try to interact. Respond only with the names and summaries"
+                "Be concise and to the point. Don't ask questions or try to interact."
         })
         String chat(String userMessage);
     }
