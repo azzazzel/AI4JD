@@ -27,13 +27,13 @@ public class NaiveEmbeddings {
         scienceMap.put("theory", 0.4);
         scienceMap.put("experiment", 0.3);
 
-        musicMap.put("music", 1.0);
-        musicMap.put("piano", 1.0);
-        musicMap.put("song", 1.0);
+        musicMap.put("music", 0.72);
+        musicMap.put("piano", 0.95);
+        musicMap.put("song", 0.35);
         musicMap.put("notes", 0.51);
         musicMap.put("rock", 0.42);
         musicMap.put("volume", 0.61);
-        musicMap.put("sound", 0.48);
+        musicMap.put("sound", 0.18);
     }
 
     static float[] generateEmbedding(Set<String> tokens) {
@@ -45,11 +45,10 @@ public class NaiveEmbeddings {
     }
 
     private static float classify(Map<String, Double> map, Set<String> tokens) {
-        return map.entrySet().stream()
+        return (float) map.entrySet().stream()
                 .filter(entry -> tokens.contains(entry.getKey()))
-                .map(Map.Entry::getValue)
-                .max(Comparator.naturalOrder())
-                .orElse(0.0)
-                .floatValue();
+                .mapToDouble(Map.Entry::getValue)
+                .average()
+                .orElse(0.0);
     }
 }
