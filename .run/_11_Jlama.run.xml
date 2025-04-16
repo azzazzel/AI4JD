@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="_11_Jlama" type="Application" factoryName="Application" nameIsGenerated="true">
+    <option name="MAIN_CLASS_NAME" value="com.milendyankov.demos.ai4jd._11_Jlama" />
+    <module name="AI4JD" />
+    <option name="VM_PARAMETERS" value="--add-modules jdk.incubator.vector --enable-preview" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="com.milendyankov.demos.ai4jd.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
