@@ -24,7 +24,7 @@ public class _14_RAG {
         ChatLanguageModel model =
                 OllamaChatModel.builder()
                         .baseUrl("http://localhost:11434")
-                        .modelName("llama3.2")
+                        .modelName("gemma3")
                         .build();
 
 
@@ -68,7 +68,7 @@ public class _14_RAG {
                 "You are a helpful librarian helping a person finding relevant books.",
                 "Requests will contain information about what customer wants",
                 "Requests will have attached a JSON formated list of books available in the store.",
-                "Respond in natural human language with the book titles that would help the customer. Explain briefly why.",
+                "Respond in natural human language with a few book titles that would help the customer. Explain briefly why.",
                 "First mention the books available in the store.",
                 "Then you may mention other books you know of that the store does not have.",
                 "Be concise and to the point. Don't ask questions or try to interact. ",
