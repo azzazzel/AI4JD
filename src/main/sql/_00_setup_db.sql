@@ -11,7 +11,7 @@ CREATE TABLE books (
 );
 
 COPY books (title, description, authors, publisher, publishedDate, genres, ratingsCount)
-FROM 'data.csv'
+FROM '/data/sql/data.csv'
 DELIMITER ','
 CSV HEADER;
 
