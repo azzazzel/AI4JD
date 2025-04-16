@@ -24,13 +24,24 @@ public class _05_VectorSeachOverNaiveEmbeddings {
         resultSet.close();
 
         // find nearest vectors
-        PreparedStatement neighborStmt = conn.prepareStatement("SELECT * FROM books_vector ORDER BY embedding <-> ? LIMIT 5");
-        neighborStmt.setObject(1, new PGvector(NaiveEmbeddings.generateEmbedding(searchTokens)));
+        PreparedStatement neighborStmt = conn.prepareStatement(
+            """
+                    SELECT
+                        title,
+                        description,
+                        embedding <-> ? AS distance
+                    FROM books_vector
+                    ORDER BY distance
+                    LIMIT 5
+                """);
+        var searchVector = new PGvector(NaiveEmbeddings.generateEmbedding(searchTokens));
+        neighborStmt.setObject(1, searchVector);
         resultSet = neighborStmt.executeQuery();
+
+        System.out.println("❓: " + query);
         while (resultSet.next()) {
-            System.out.println("---");
-            System.out.println(resultSet.getString("title"));
-            System.out.println("---");
+            System.out.println("------ (" + resultSet.getString("distance") +")");
+            System.out.println("\t\uD83D\uDCD7" + resultSet.getString("title"));
             System.out.println("\t" + resultSet.getString("description"));
         }
         resultSet.close();

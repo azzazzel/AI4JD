@@ -37,12 +37,13 @@ public class _10_SearchVectorStore {
 
         List<EmbeddingMatch<TextSegment>> relevant = embeddingStore.search(embeddingSearchRequest).matches();
 
-        for (EmbeddingMatch embeddingMatch : relevant) {
-            TextSegment textSegment = (TextSegment) embeddingMatch.embedded();
-            System.out.println("---");
-            System.out.println(textSegment.metadata().getString("title"));
-            System.out.println("---");
+        System.out.println("❓" + query);
+        for (EmbeddingMatch<TextSegment> embeddingMatch : relevant) {
+            TextSegment textSegment = embeddingMatch.embedded();
+            System.out.println("------ (" + embeddingMatch.score() +")");
+            System.out.println("\t\uD83D\uDCD7" + textSegment.metadata().getString("title"));
             System.out.println("\t" + textSegment.text());
+
         }
 
         EmbeddingMatch<TextSegment> embeddingMatch = relevant.get(0);

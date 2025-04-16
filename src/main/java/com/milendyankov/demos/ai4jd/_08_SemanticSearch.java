@@ -10,13 +10,24 @@ public class _08_SemanticSearch {
 
         String query = "I want to learn to play a song on a piano";
 
-        PreparedStatement neighborStmt = conn.prepareStatement("SELECT * FROM books_embeddings ORDER BY embeddings <-> ? LIMIT 5");
-        neighborStmt.setObject(1, new PGvector(ModelEmbeddings.generateEmbedding(query)));
+        PreparedStatement neighborStmt = conn.prepareStatement(
+            """
+                    SELECT
+                        title,
+                        description,
+                        embeddings <-> ? AS distance
+                    FROM books_embeddings
+                    ORDER BY distance
+                    LIMIT 5
+                """);
+        var queryVector = new PGvector(ModelEmbeddings.generateEmbedding(query));
+        neighborStmt.setObject(1, queryVector);
         ResultSet resultSet = neighborStmt.executeQuery();
+
+        System.out.println("❓" + query);
         while (resultSet.next()) {
-            System.out.println("---");
-            System.out.println(resultSet.getString("title"));
-            System.out.println("---");
+            System.out.println("------ (" + resultSet.getString("distance") +")");
+            System.out.println("\t\uD83D\uDCD7" + resultSet.getString("title"));
             System.out.println("\t" + resultSet.getString("description"));
         }
         resultSet.close();
