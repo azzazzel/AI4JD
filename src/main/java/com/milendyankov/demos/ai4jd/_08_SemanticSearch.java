@@ -8,7 +8,7 @@ public class _08_SemanticSearch {
     public static void main(String[] args) throws SQLException {
         Connection conn = PostgressDB.getConnection();
 
-        String query = "how to play a song on a piano";
+        String query = "I want to learn to play a song on a piano";
 
         PreparedStatement neighborStmt = conn.prepareStatement("SELECT * FROM books_embeddings ORDER BY embeddings <-> ? LIMIT 5");
         neighborStmt.setObject(1, new PGvector(ModelEmbeddings.generateEmbedding(query)));

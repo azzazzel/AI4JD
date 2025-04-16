@@ -7,7 +7,7 @@ import dev.langchain4j.model.ollama.OllamaChatModel;
 public class _12_Ollama {
     public static void main(String[] args) {
 
-        String query = "how to play a song on a piano?";
+        String query = "I want to learn to play a song on a piano";
 
         String modelName = "llama3.2";
 

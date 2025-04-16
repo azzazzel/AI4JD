@@ -26,7 +26,7 @@ public class _10_SearchVectorStore {
                 .dimension(embeddingModel.embed("tmp").content().dimension())
                 .build();
 
-        String query = "how to play a song on a piano";
+        String query = "I want to learn to play a song on a piano";
 
         Embedding queryEmbedding = embeddingModel.embed(query).content();
 

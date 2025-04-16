@@ -8,7 +8,7 @@ import dev.langchain4j.service.SystemMessage;
 public class _13_AIService {
     public static void main(String[] args) {
 
-        String query = "how to play a song on a piano?";
+        String query = "I want to learn to play a song on a piano";
 
         ChatLanguageModel model =
                 OllamaChatModel.builder()

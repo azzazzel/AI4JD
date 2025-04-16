@@ -24,7 +24,7 @@ import java.util.List;
 public class _14_RAG {
     public static void main(String[] args) {
 
-        String query = "how to play a song on a piano?";
+        String query = "I want to learn to play a song on a piano";
 
         ChatLanguageModel model =
                 OllamaChatModel.builder()
@@ -33,6 +33,7 @@ public class _14_RAG {
                         .build();
 
         EmbeddingModel embeddingModel = new AllMiniLmL6V2EmbeddingModel();
+
         EmbeddingStore<TextSegment> embeddingStore = PgVectorEmbeddingStore.builder()
                 .host(PostgressDB.HOST)
                 .port(PostgressDB.PORT)

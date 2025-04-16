@@ -6,7 +6,7 @@ import dev.langchain4j.model.jlama.JlamaChatModel;
 public class _11_Jlama {
     public static void main(String[] args) {
 
-        String query = "how to play a song on a piano?";
+        String query = "I want to learn to play a song on a piano";
 
         ChatLanguageModel model = JlamaChatModel.builder()
                 .modelName("tjake/TinyLlama-1.1B-Chat-v1.0-Jlama-Q4")

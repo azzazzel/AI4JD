@@ -12,8 +12,7 @@ public class _05_VectorSeachOverNaiveEmbeddings {
     public static void main(String[] args) throws SQLException {
         Connection conn = PostgressDB.getConnection();
 
-
-        String query = "how to play a song on a piano";
+        String query = "I want to learn to play a song on a piano";
 
         // tokenize and convert query to vector
         PreparedStatement toVectorStmt = conn.prepareStatement("SELECT tsvector_to_array(to_tsvector('english', ?)) AS tokens ");
