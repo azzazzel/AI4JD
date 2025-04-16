@@ -6,9 +6,9 @@ import java.util.Map;
 import java.util.Set;
 
 public class NaiveEmbeddings {
-    private static Map<String, Double> animalMap = new HashMap<>();
-    private static Map<String, Double> scienceMap = new HashMap<>();
-    private static Map<String, Double> musicMap = new HashMap<>();
+    private static final Map<String, Double> animalMap = new HashMap<>();
+    private static final Map<String, Double> scienceMap = new HashMap<>();
+    private static final Map<String, Double> musicMap = new HashMap<>();
 
     static {
         animalMap.put("cat", 1.0);

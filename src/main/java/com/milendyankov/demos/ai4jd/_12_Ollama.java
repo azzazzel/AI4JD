@@ -1,7 +1,6 @@
 package com.milendyankov.demos.ai4jd;
 
 import dev.langchain4j.model.chat.ChatLanguageModel;
-import dev.langchain4j.model.jlama.JlamaChatModel;
 import dev.langchain4j.model.ollama.OllamaChatModel;
 
 public class _12_Ollama {

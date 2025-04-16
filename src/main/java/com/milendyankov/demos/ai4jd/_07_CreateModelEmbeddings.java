@@ -21,7 +21,7 @@ public class _07_CreateModelEmbeddings {
             String title = resultSet.getString("title");
             String description = resultSet.getString("description");
             if (description != null) {
-                float[] vector = ModelEmbeddings.generateEmbedding(description);
+                float[] vector = ModelEmbeddings.embed(description);
                 // Update the database
                 updateStmt.setObject(1, new PGvector(vector));
                 updateStmt.setString(2, title);

@@ -3,8 +3,6 @@ package com.milendyankov.demos.ai4jd;
 import dev.langchain4j.data.document.Metadata;
 import dev.langchain4j.data.embedding.Embedding;
 import dev.langchain4j.data.segment.TextSegment;
-import dev.langchain4j.model.embedding.AllMiniLmL6V2EmbeddingModel;
-import dev.langchain4j.model.embedding.EmbeddingModel;
 import dev.langchain4j.store.embedding.EmbeddingStore;
 import dev.langchain4j.store.embedding.pgvector.PgVectorEmbeddingStore;
 
@@ -15,7 +13,6 @@ import java.sql.SQLException;
 
 public class _09_VectorStore {
     public static void main(String[] args) throws SQLException {
-        EmbeddingModel embeddingModel = new AllMiniLmL6V2EmbeddingModel();
 
         EmbeddingStore<TextSegment> embeddingStore = PgVectorEmbeddingStore.builder()
                 .host(PostgressDB.HOST)
@@ -24,7 +21,7 @@ public class _09_VectorStore {
                 .user(PostgressDB.USER)
                 .password(PostgressDB.PASSWORD)
                 .table("embeddings")
-                .dimension(embeddingModel.embed("tmp").content().dimension())
+                .dimension(ModelEmbeddings.getModelDimentions())
                 .build();
 
         Connection conn = PostgressDB.getConnection();
@@ -36,7 +33,7 @@ public class _09_VectorStore {
             if (description != null) {
                 Metadata metadata = Metadata.metadata("title", title);
                 TextSegment textSegment = TextSegment.from(description, metadata);
-                Embedding embedding = embeddingModel.embed(textSegment).content();
+                Embedding embedding = ModelEmbeddings.generateEmbedding(textSegment);
                 embeddingStore.add(embedding, textSegment);
             }
         }

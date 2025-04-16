@@ -15,10 +15,9 @@ public class PostgressDB {
 
 
     public static Connection getConnection() throws SQLException {
-        Connection conn = DriverManager.getConnection(
+        return DriverManager.getConnection(
                 "jdbc:postgresql://" + HOST + ":" + PORT + "/" + DB,
                 USER,
                 PASSWORD);
-        return conn;
     }
 }

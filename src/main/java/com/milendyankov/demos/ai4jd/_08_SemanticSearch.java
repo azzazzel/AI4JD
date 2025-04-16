@@ -20,7 +20,7 @@ public class _08_SemanticSearch {
                     ORDER BY distance
                     LIMIT 5
                 """);
-        var queryVector = new PGvector(ModelEmbeddings.generateEmbedding(query));
+        var queryVector = new PGvector(ModelEmbeddings.embed(query));
         neighborStmt.setObject(1, queryVector);
         ResultSet resultSet = neighborStmt.executeQuery();
 
