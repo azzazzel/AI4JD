@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class PostgressDB {
 
     public static String HOST = "localhost";
-    public static Integer PORT = 5433;
+    public static Integer PORT = 5432;
     public static String DB = "postgres";
     public static String USER = "postgres";
     public static String PASSWORD = "123";
@@ -16,9 +16,9 @@ public class PostgressDB {
 
     public static Connection getConnection() throws SQLException {
         Connection conn = DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5433/postgres",
-                "postgres",
-                "123");
+                "jdbc:postgresql://" + HOST + ":" + PORT + "/" + DB,
+                USER,
+                PASSWORD);
         return conn;
     }
 }
