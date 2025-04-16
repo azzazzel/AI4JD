@@ -5,22 +5,21 @@ import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.store.embedding.EmbeddingMatch;
 import dev.langchain4j.store.embedding.EmbeddingSearchRequest;
 import dev.langchain4j.store.embedding.EmbeddingStore;
-import dev.langchain4j.store.embedding.pgvector.PgVectorEmbeddingStore;
+import dev.langchain4j.store.embedding.pinecone.PineconeEmbeddingStore;
+import io.github.cdimascio.dotenv.Dotenv;
 
 import java.util.List;
 
 public class _10_SearchVectorStore {
     public static void main(String[] args) {
 
-        EmbeddingStore<TextSegment> embeddingStore = PgVectorEmbeddingStore.builder()
-                .host(PostgressDB.HOST)
-                .port(PostgressDB.PORT)
-                .database(PostgressDB.DB)
-                .user(PostgressDB.USER)
-                .password(PostgressDB.PASSWORD)
-                .table("embeddings")
-                .dimension(ModelEmbeddings.getModelDimentions())
+        Dotenv dotenv = Dotenv.load();
+
+        EmbeddingStore<TextSegment> embeddingStore = PineconeEmbeddingStore.builder()
+                .apiKey(dotenv.get("PINECONE_API_KEY"))
+                .index("ai4jd")
                 .build();
+
 
         String query = "I want to learn to play a song on a piano";
 
