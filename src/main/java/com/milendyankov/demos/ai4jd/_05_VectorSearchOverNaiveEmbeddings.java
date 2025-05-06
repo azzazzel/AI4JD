@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class _05_VectorSeachOverNaiveEmbeddings {
+public class _05_VectorSearchOverNaiveEmbeddings {
 
     public static void main(String[] args) throws SQLException {
         Connection conn = PostgressDB.getConnection();
