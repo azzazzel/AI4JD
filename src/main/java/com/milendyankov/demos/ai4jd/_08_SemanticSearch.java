@@ -2,7 +2,10 @@ package com.milendyankov.demos.ai4jd;
 
 import com.pgvector.PGvector;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class _08_SemanticSearch {
     public static void main(String[] args) throws SQLException {

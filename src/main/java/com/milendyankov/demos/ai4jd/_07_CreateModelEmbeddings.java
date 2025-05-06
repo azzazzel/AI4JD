@@ -2,10 +2,10 @@ package com.milendyankov.demos.ai4jd;
 
 import com.pgvector.PGvector;
 
-import java.sql.*;
-import java.util.Arrays;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class _07_CreateModelEmbeddings {
 

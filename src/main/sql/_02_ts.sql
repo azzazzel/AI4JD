@@ -14,7 +14,7 @@ WHERE vector @@ query
 ORDER BY rank DESC;
 
 -- create new table with a dedicated tsvector column 
-CREATE TABLE books_ts AS 
+CREATE TABLE IF NOT EXISTS books_ts AS 
 SELECT 
 	*,
 	to_tsvector('english', description) AS tokens

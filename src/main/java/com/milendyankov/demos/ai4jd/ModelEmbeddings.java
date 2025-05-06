@@ -16,8 +16,7 @@ public class ModelEmbeddings {
     }
 
     static Embedding generateEmbedding(TextSegment text) {
-        EmbeddingModel embeddingModel = new AllMiniLmL6V2EmbeddingModel();
-        return embeddingModel.embed(text).content();
+        return getModel().embed(text).content();
     }
 
     static float[] embed(String text) {

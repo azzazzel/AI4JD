@@ -4,7 +4,6 @@ import dev.langchain4j.data.document.Metadata;
 import dev.langchain4j.data.embedding.Embedding;
 import dev.langchain4j.data.segment.TextSegment;
 import dev.langchain4j.store.embedding.EmbeddingStore;
-import dev.langchain4j.store.embedding.pgvector.PgVectorEmbeddingStore;
 import dev.langchain4j.store.embedding.pinecone.PineconeEmbeddingStore;
 import dev.langchain4j.store.embedding.pinecone.PineconeServerlessIndexConfig;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -33,18 +32,12 @@ public class _09_VectorStore {
 
 
         Connection conn = PostgressDB.getConnection();
-        PreparedStatement selectStmt = conn.prepareStatement("SELECT title, description FROM books_embeddings");
+        PreparedStatement selectStmt = conn.prepareStatement("SELECT title, description FROM books");
         ResultSet resultSet = selectStmt.executeQuery();
         List<Embedding> embeddings = new LinkedList<>();
         List<TextSegment> textSegments = new LinkedList<>();
 
         while (resultSet.next()) {
-            if (embeddings.size() == 500) {
-                System.out.println("Upserting 500 vectors ...");
-                embeddingStore.addAll(embeddings, textSegments);
-                embeddings.clear();
-                textSegments.clear();
-            }
             String title = resultSet.getString("title");
             String description = resultSet.getString("description");
             if (description != null) {
@@ -53,6 +46,12 @@ public class _09_VectorStore {
                 Embedding embedding = ModelEmbeddings.generateEmbedding(textSegment);
                 embeddings.add(embedding);
                 textSegments.add(textSegment);
+            }
+            if (embeddings.size() == 500) {
+                System.out.println("Upserting 500 vectors ...");
+                embeddingStore.addAll(embeddings, textSegments);
+                embeddings.clear();
+                textSegments.clear();
             }
         }
 
